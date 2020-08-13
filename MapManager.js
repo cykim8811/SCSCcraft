@@ -1,4 +1,6 @@
 
+// #include "Chunk.js";
+
 var chunkLoader = new class{
     constructor(chunk_size={width: 16, height: 256}){
         this.chunk_size = chunk_size;
