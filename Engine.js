@@ -1,11 +1,13 @@
 
 // #include "MapManager.js";
+// #include "PhysicsEngine.js"
 
-var engine = new class{
+const engine = new class{
     constructor(){
         this.map = mapManager;
         this.running = false;
         this.fps = 30;
+        this.physics = new PhysicsEngine();
     }
 
     run(){
@@ -14,9 +16,16 @@ var engine = new class{
         this.tick(0);
     }
 
+    getBlock(position){
+        return this.map.get_block(position.x, position.y, position.z);
+    }
+
+    setBlock(position, block){
+        return this.map.set_block(position.x, position.y, position.z, block);
+    }
+
     // Automatically calls itself while this.running == true
     tick(dT){
-        
 
         // Calling this function again
         setTimeout(function(self){

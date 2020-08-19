@@ -1,7 +1,7 @@
 
 // #include "Chunk.js";
 
-var chunkLoader = new class{
+const chunkLoader = new class{
     constructor(chunk_size={width: 16, height: 256}){
         this.chunk_size = chunk_size;
     }
@@ -26,7 +26,7 @@ var chunkLoader = new class{
     }
 }({width: 16, height: 256});
 
-var mapManager = new class{
+const mapManager = new class{
     constructor(chunk_size={width: 16, height: 256}, chunk_loader){
         this.chunk_size = chunk_size;
         this.chunks = [];
