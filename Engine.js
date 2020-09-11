@@ -2,36 +2,40 @@
 // #include "MapManager.js";
 // #include "PhysicsEngine.js"
 
-const engine = new class{
+class Engine{
     constructor(){
-        this.map = mapManager;
-        this.running = false;
-        this.fps = 30;
-        this.physics = new PhysicsEngine();
+        this.setting = {
+            fps: 30,
+            running: true
+        };
+        this.world = new World();
+        this.physics_engine = new PhysicsEngine({g: 9.8});
     }
 
     run(){
-        if (this.running) return false;
-        this.running = true;
+        if (this.setting.running) return false;
+        this.setting.running = true;
         this.tick(0);
     }
 
     getBlock(position){
-        return this.map.get_block(position.x, position.y, position.z);
+        return this.world.map.get_block(position.x, position.y, position.z);
     }
 
     setBlock(position, block){
-        return this.map.set_block(position.x, position.y, position.z, block);
+        return this.world.map.set_block(position.x, position.y, position.z, block);
     }
 
     // Automatically calls itself while this.running == true
     tick(dT){
-
+        for (let e of this.entities){
+            this.physics_engine.run_entity(this.map, e, dT);
+        }
         // Calling this function again
         setTimeout(function(self){
-            if (self.running){
-                self.tick(1000 / self.fps);
+            if (self.setting.running){
+                self.tick(1000 / self.setting.fps);
             }
-        }, 1000 / this.fps, this);
+        }, 1000 / this.setting.fps, this);
     }
 };

@@ -1,7 +1,7 @@
 
 // #include "Chunk.js";
 
-const chunkLoader = new class{
+class ChunkLoader{
     constructor(chunk_size={width: 16, height: 256}){
         this.chunk_size = chunk_size;
     }
@@ -24,10 +24,10 @@ const chunkLoader = new class{
     save_chunk(chnk){
 
     }
-}({width: 16, height: 256});
+}
 
-const mapManager = new class{
-    constructor(chunk_size={width: 16, height: 256}, chunk_loader){
+class MapManager{
+    constructor(chunk_size={width: 16, height: 256}, chunk_loader=new ChunkLoader()){
         this.chunk_size = chunk_size;
         this.chunks = [];
         this.chunk_loader = chunk_loader;
@@ -48,6 +48,13 @@ const mapManager = new class{
                 return c;
             }
         }
+        let new_chunk = this.chunk_loader.load_chunk(x, y);
+        this.chunks.push(new_chunk);
+        return new_chunk;
+    }
+
+    force_load_chunk(x, y){
+        this.remove_chunk(this.load_chunk(x, y));
         let new_chunk = this.chunk_loader.load_chunk(x, y);
         this.chunks.push(new_chunk);
         return new_chunk;
@@ -95,5 +102,4 @@ const mapManager = new class{
         let current_chunk = this.load_chunk(chunk_pos.x, chunk_pos.y);
         current_chunk.get_relative(relative_pos.x, relative_pos.y, relative_pos.z);
     }
-
-}({width: 16, height: 256}, chunkLoader);
+}

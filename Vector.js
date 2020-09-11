@@ -1,20 +1,40 @@
 
-const Vector = new class{
-    add(p, q){
-        return {
-            x: p.x + q.x,
-            y: p.y + q.y,
-            z: p.z + q.z,
-        };
+class Vector{
+    constructor(x, y, z){
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
-    inner(p, q){
-        return p.x * q.x + p.y * q.y + p.z * q.z;
+
+    set(x, y, z){
+        if (y == undefined){
+            this.x = x.x;
+            this.y = x.y;
+            this.z = x.z;
+        }
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
-    substract(p, q){
-        return {
-            x: p.x - q.x,
-            y: p.y - q.y,
-            z: p.z - q.z,
-        };
+
+    add(dx, dy, dz){
+        if (dy == undefined){
+            this.x += x.x;
+            this.y += x.y;
+            this.z += x.z;
+        }
+        this.x += dx;
+        this.y += dy;
+        this.z += dz;
     }
+
+    multiply(n){
+        this.x *= n;
+        this.y *= n;
+        this.z *= n;
+    }
+}
+
+Vector.inner = function(v1, v2){
+    return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }

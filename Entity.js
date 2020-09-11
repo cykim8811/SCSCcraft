@@ -9,6 +9,6 @@ class Entity{
             stationary: false,
         };
 
-        this.velocity =  {x: 0, y: 0, z: 0};
+        this.velocity =  new Vector(0, 0, 0);
     }
 }
