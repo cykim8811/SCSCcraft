@@ -3,12 +3,12 @@
 // #include "PhysicsEngine.js"
 
 class Engine{
-    constructor(){
+    constructor(world){
         this.setting = {
             fps: 30,
             running: true
         };
-        this.world = new World();
+        this.world = world;
         this.physics_engine = new PhysicsEngine({g: 9.8});
     }
 
