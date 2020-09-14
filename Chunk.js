@@ -15,7 +15,10 @@ class Chunk{
     }
 
     pos_to_ind(x, y, z){
-        if (y < 0 || y >= this.chunk_size.height) console.error("Try to access block out of y range");
+        if (y < 0 || y >= this.chunk_size.height){
+            console.error("Try to access block out of y range");
+            forerror();
+        }
         return this.chunk_size.width * this.chunk_size.height * x
             + this.chunk_size.height * z
             + y;
@@ -40,12 +43,12 @@ class Chunk{
         if (x >= 0 && x < this.chunk_size.width && z >= 0 && z < this.chunk_size.width){
             return this.data[this.pos_to_ind(x, y, z)];
         }else{
-            const rx = this.pos_in_world.x + Math.floor(x / this.chunk_size.width);
-            const rz = this.pos_in_world.z + Math.floor(z / this.chunk_size.width);
-            if (!this.map.isLoaded(rx, rz)){
+            const rx = Math.floor(x / this.chunk_size.width);
+            const rz = Math.floor(z / this.chunk_size.width);
+            if (!this.map.isLoaded(this.pos_in_world.x + rx, this.pos_in_world.z + rz)){
                 return null;
             }
-            return this.map.load_chunk(rx, rz).get_relative(x - Math.floor(x / this.chunk_size.width) * this.chunk_size.width, y, z - Math.floor(z / this.chunk_size.width) * this.chunk_size.width);
+            return this.map.load_chunk(this.pos_in_world.x + rx, this.pos_in_world.z + rz).get_relative(x - rx * this.chunk_size.width, y, z - rz * this.chunk_size.width);
         }
     }
 }

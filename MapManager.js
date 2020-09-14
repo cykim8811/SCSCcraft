@@ -14,10 +14,12 @@ class ChunkLoader{
             for (let z=0; z<this.chunk_size.width; z++){
                 let rx = this.chunk_size.width * px + x;
                 let rz = this.chunk_size.width * pz + z;
-                let h = Math.cos(rx / 10) * Math.cos(rz / 10) * 32 + 48;
+                let r = Math.sqrt(Math.pow(rx, 2) + Math.pow(rz, 2));
+                let h = 32 + ((Math.cos(rx / 8) * Math.cos(rz / 8) * 12) + Math.cos(Math.abs(Math.pow(r, 2)) / 1000) * 8) * Math.pow(1.01, -r/16);
                 for (let y=0; y<h; y++){
-                    new_chunk.set_relative(x, y, z, {id: 1});
+                    new_chunk.set_relative(x, y, z, {id: 2});
                 }
+                new_chunk.set_relative(x, Math.floor(h), z, {id: 1});
             }
         }
         return new_chunk;
@@ -94,14 +96,14 @@ class MapManager{
     get_block(x, y, z){
         let chunk_pos = {
             x: Math.floor(x / this.chunk_size.width),
-            y: Math.floor(y / this.chunk_size.width)
+            z: Math.floor(z / this.chunk_size.width)
         };
         let relative_pos = {
             x: x - chunk_pos.x * this.chunk_size.width,
-            y: y - chunk_pos.y * this.chunk_size.width,
-            z: z
+            y: y,
+            z: z - chunk_pos.z * this.chunk_size.width
         };
         let current_chunk = this.load_chunk(chunk_pos.x, chunk_pos.z);
-        current_chunk.get_relative(relative_pos.x, relative_pos.y, relative_pos.z);
+        return current_chunk.get_relative(relative_pos.x, relative_pos.y, relative_pos.z);
     }
 }

@@ -5,11 +5,12 @@
 class Engine{
     constructor(world){
         this.setting = {
-            fps: 30,
-            running: true
+            fps: 100,
+            running: false
         };
         this.world = world;
         this.physics_engine = new PhysicsEngine({g: 9.8});
+        this.subengines = [];
     }
 
     run(){
@@ -28,8 +29,11 @@ class Engine{
 
     // Automatically calls itself while this.running == true
     tick(dT){
-        for (let e of this.entities){
+        for (let e of this.world.entities){
             this.physics_engine.run_entity(this.map, e, dT);
+        }
+        for (let subengine of this.subengines){
+            subengine.tick(dT);
         }
         // Calling this function again
         setTimeout(function(self){
