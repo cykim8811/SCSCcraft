@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" href="favicon.ico">
+		<title>Pycraft</title>
+		<style>
+			html {
+				width: 100%;
+				height: 100%;
+			}
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0px;
+				border: 0;
+				overflow: hidden;
+				display: block;
+				background-color: lightgray;
+			}
+		</style>
+	</head>
+
+	<body oncontextmenu="return false;">
+		<div id="loginscreen" style="width: 256px; height: 160px; background-color: rgb(160, 160, 160); margin: 0 auto; margin-top: 20%; filter: drop-shadow(3px 3px 5px #555);">
+			<br>
+			<div style="color: 000; font-weight: bold;">name:</div><input id="name" style="width: 96%;"><br><br>
+			<button onclick="document.getElementById('loginscreen').style.display = 'none'; start(document.getElementById('name').value);"
+					style="width: 100%;">Enter</button>
+		</div>
+		<script src="ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/three.js"></script>
+		<script src="js/MTLLoader.js"></script>
+		<script src="js/OBJLoader.js"></script>
+		<script src="Vector.js"></script>
+		<script src="Chunk.js"></script>
+		<script src="MapManager.js"></script>
+		<script src="World.js"></script>
+		<script src="Renderer.js"></script>
+		<script src="PlayerEngine.js"></script>
+		<script src="Engine.js"></script>
+		<script src="PlayerEntity.js"></script>
+		<script src="ComputerEntity.js"></script>
+		<script src="Network.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
